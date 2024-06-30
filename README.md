@@ -9,6 +9,7 @@ docker-compose up -d
 To shut down :
 ```
 docker-compose down
+```
 
 ### Run without Docker Compose
 When running without Docker Compose, you will need to build the image and the network first :
@@ -34,3 +35,10 @@ After running the containers correctly, you can visit the page at :
 ```
 localhost:4000
 ```
+
+### Visiting pgAdmin
+Credentials in docker-compose.yml
+```
+localhost:5050
+```
+
