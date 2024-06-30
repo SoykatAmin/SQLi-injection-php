@@ -15,23 +15,24 @@
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $conn = new PDO("pgsql:host=postgres;dbname=testdb", "testuser", "testpass");
 
-        if ($conn->connect_error) {
-            die("Connection failed: " . $conn->connect_error);
+        if (!$conn) {
+            echo "<a href='index.php'>Go back</a> ";
+            die("Connection failed: ");
         }
 
         $search = $_POST['search'];
         $sql = "SELECT * FROM users WHERE username LIKE '%$search%'";
         $result = $conn->query($sql);
 
-        if ($result->num_rows > 0) {
-            while($row = $result->fetch_assoc()) {
+        if ($result->rowCount() > 0) {
+            while($row = $result->fetch(PDO::FETCH_ASSOC)) {
                 echo "id: " . $row["id"]. " - Name: " . $row["username"]. "<br>";
             }
         } else {
             echo "0 results";
         }
 
-        $conn->null;
+        $conn = null;
     }
     ?>
     <a href="index.php">Go back</a> 
